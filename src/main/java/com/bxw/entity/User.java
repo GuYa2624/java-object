@@ -15,6 +15,23 @@ public class User {
     private Date createtime; // 注册时间
     private int role; // 用户角色 1：管理员 2：一般用户 3：VIP用户
 
+    public User() {
+    }
+
+    public User(int uid, String name, String phone, int age, int sex, String username, String password, String picture, int status, Date createtime, int role) {
+        this.uid = uid;
+        this.name = name;
+        this.phone = phone;
+        this.age = age;
+        this.sex = sex;
+        this.username = username;
+        this.password = password;
+        this.picture = picture;
+        this.status = status;
+        this.createtime = createtime;
+        this.role = role;
+    }
+
     public int getUid() {
         return uid;
     }

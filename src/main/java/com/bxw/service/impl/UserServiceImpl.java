@@ -5,9 +5,11 @@ import com.bxw.dao.impl.UserDaoImpl;
 import com.bxw.entity.User;
 import com.bxw.service.UserService;
 import com.bxw.util.JsonUtil;
+import com.bxw.util.PageUtil;
 import com.bxw.util.ResultUtil;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * 用于判断登录的用户的账户密码，以及验证码
@@ -53,4 +55,49 @@ public class UserServiceImpl implements UserService {
         // 直接返回一个json字符串
         return JsonUtil.toJson(resultUtil);
     }
+
+    @Override
+    public int getRows() {
+        return userDao.getCounts();
+    }
+
+    @Override
+    public List<User> getUserByPage(PageUtil pageUtil) {
+        return userDao.getUserByPage(pageUtil);
+    }
+
+    @Override
+    public int getCountsByUsername(String username) {
+        return userDao.getCountsByUsername(username);
+    }
+
+    @Override
+    public List<User> getUserByUsername(PageUtil pageUtil, String username) {
+        return userDao.getUserByUsername(pageUtil, username);
+    }
+
+    @Override
+    public String addUser(User user) {
+        ResultUtil resultUtil = null;
+        int rows = userDao.addUser(user);
+        if (rows != 0){
+            resultUtil = new ResultUtil(1,"操作成功",null);
+        }else {
+            resultUtil = new ResultUtil(0,"操作失败", null);
+        }
+        return JsonUtil.toJson(resultUtil);
+    }
+
+    @Override
+    public String delAll(String uid) {
+        ResultUtil resultUtil = null;
+        int row = userDao.delAll(uid);
+        if (row != 0){
+            resultUtil = new ResultUtil(1,"删除成功", null);
+        }else {
+            resultUtil = new ResultUtil(0, "删除失败", null);
+        }
+        return JsonUtil.toJson(resultUtil);
+    }
+
 }
